@@ -15,11 +15,19 @@ exports.handler = async (event) => {
     ? event["queryStringParameters"]["city"].toLowerCase()
     : null;
 
+  //check that city is not empty
+  if (!city) {
+    return {
+      statusCode: 400,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+      },
+      body: "Please entera valid city name. Cannot be blank.",
+    };
+  }
+
   try {
     await clientRedis.connect();
-    if (!city) {
-      throw { message: "Please entera valid city name. Cannot be blank." };
-    }
 
     //check if city data is already in cache
     const cityInCache = await clientRedis.get(city);
@@ -51,7 +59,7 @@ exports.handler = async (event) => {
   } catch (err) {
     await clientRedis.quit();
     return {
-      statusCode: 200,
+      statusCode: 500,
       headers: {
         "Access-Control-Allow-Origin": "*",
       },

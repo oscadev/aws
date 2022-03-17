@@ -32,7 +32,7 @@ function App() {
           alert(weatherData.data);
         }
       })
-      .catch((err) => alert(err.message));
+      .catch((err) => alert(err.response.data));
   };
 
   return (
