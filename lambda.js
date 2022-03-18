@@ -22,7 +22,7 @@ exports.handler = async (event) => {
       headers: {
         "Access-Control-Allow-Origin": "*",
       },
-      body: "Please entera valid city name. Cannot be blank.",
+      body: "Please enter a valid city name. Cannot be blank.",
     };
   }
 
